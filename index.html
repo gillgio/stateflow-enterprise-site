@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>源序 × 源序流｜Hero Page</title>
+  <style>
+    :root {
+      --paper: #f7f3ea;
+      --paper-soft: #fbf8f1;
+      --navy: #102b47;
+      --navy-2: #183653;
+      --ink: #1e2b36;
+      --gold: #b9903f;
+      --gold-soft: #d5b46a;
+      --line: rgba(16, 43, 71, 0.14);
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      color: var(--navy);
+      background: var(--paper);
+    }
+
+    body { overflow-x: hidden; }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 60% 55%, rgba(255, 240, 204, 0.78) 0%, rgba(255, 240, 204, 0.30) 18%, rgba(255,255,255,0) 39%),
+        linear-gradient(90deg, rgba(247,243,234,0.98) 0%, rgba(247,243,234,0.90) 31%, rgba(247,243,234,0.50) 54%, rgba(247,243,234,0.18) 75%, rgba(247,243,234,0.08) 100%),
+        var(--paper-soft);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      bottom: 0;
+      height: 56%;
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(250,248,243,0.12) 32%, rgba(250,248,243,0.30) 100%),
+        url("data:image/svg+xml,%3Csvg width='1800' height='560' viewBox='0 0 1800 560' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop stop-color='%23b8c8cf' stop-opacity='.42'/%3E%3Cstop offset='1' stop-color='%23678393' stop-opacity='.62'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop stop-color='%238aa2ac' stop-opacity='.56'/%3E%3Cstop offset='1' stop-color='%233f6478' stop-opacity='.78'/%3E%3C/linearGradient%3E%3ClinearGradient id='g3' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop stop-color='%235f8292' stop-opacity='.70'/%3E%3Cstop offset='1' stop-color='%231b4661' stop-opacity='.92'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 260 C160 210 240 235 360 190 C520 132 640 250 790 165 C925 88 1042 205 1175 150 C1355 77 1525 185 1800 120 L1800 560 L0 560 Z' fill='url(%23g1)'/%3E%3Cpath d='M0 335 C145 285 252 310 385 250 C548 175 680 352 842 236 C970 145 1110 322 1268 230 C1430 135 1590 270 1800 202 L1800 560 L0 560 Z' fill='url(%23g2)'/%3E%3Cpath d='M0 440 C145 352 278 405 418 318 C590 210 705 455 872 332 C1030 215 1172 436 1350 310 C1515 195 1655 360 1800 296 L1800 560 L0 560 Z' fill='url(%23g3)'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center bottom;
+      opacity: 0.88;
+      z-index: 0;
+    }
+
+    .building {
+      position: absolute;
+      right: -18px;
+      top: 110px;
+      width: 42vw;
+      min-width: 540px;
+      height: 78vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .building-main {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 78%;
+      height: 58%;
+      background:
+        linear-gradient(115deg, rgba(255,255,255,0.36), rgba(210,207,198,0.78)),
+        repeating-linear-gradient(78deg, rgba(60,60,60,0.10) 0 1px, transparent 1px 54px),
+        repeating-linear-gradient(0deg, rgba(60,60,60,0.10) 0 1px, transparent 1px 45px);
+      clip-path: polygon(24% 0, 100% 0, 100% 95%, 5% 80%);
+      box-shadow: -24px 28px 68px rgba(36, 55, 70, 0.14);
+      border-left: 1px solid rgba(150,145,138,0.34);
+      border-bottom: 1px solid rgba(150,145,138,0.30);
+    }
+
+    .terrace {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 90%;
+      height: 42%;
+      background:
+        repeating-linear-gradient(90deg, rgba(94, 94, 94, 0.15) 0 1px, transparent 1px 58px),
+        repeating-linear-gradient(0deg, rgba(94, 94, 94, 0.13) 0 1px, transparent 1px 45px),
+        linear-gradient(110deg, rgba(255,255,255,0.72), rgba(207,203,195,0.50));
+      clip-path: polygon(12% 15%, 100% 0, 100% 100%, 0 100%);
+      border-top: 1px solid rgba(160,157,151,0.42);
+    }
+
+    .steps {
+      position: absolute;
+      right: 0;
+      bottom: 12%;
+      width: 46%;
+      height: 18%;
+      background:
+        repeating-linear-gradient(0deg, rgba(70,75,82,0.18) 0 2px, transparent 2px 31px),
+        linear-gradient(120deg, rgba(219,216,209,0.95), rgba(170,170,166,0.70));
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 86%);
+      box-shadow: -18px -8px 22px rgba(36,55,70,0.10);
+    }
+
+    .sun-glow {
+      position: absolute;
+      right: 34%;
+      top: 44%;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(255,234,181,0.75) 0%, rgba(255,234,181,0.25) 24%, rgba(255,255,255,0) 68%);
+      filter: blur(2px);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      width: min(1500px, calc(100% - 88px));
+      margin: 0 auto;
+      z-index: 5;
+    }
+
+    .site-header {
+      height: 116px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 340px;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex: 0 0 auto;
+    }
+
+    .brand-logos img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-logos .sfl-logo {
+      width: 41px;
+      height: 41px;
+    }
+
+    .brand-title {
+      font-family: "Noto Serif TC", "Noto Serif CJK TC", "PMingLiU", serif;
+      font-weight: 700;
+      font-size: 29px;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    .brand-title .cross {
+      color: var(--gold);
+      margin: 0 2px;
+    }
+
+    .brand-subtitle {
+      margin-top: 8px;
+      font-size: 16px;
+      letter-spacing: 0.36em;
+      color: var(--navy-2);
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(26px, 3.4vw, 58px);
+      margin-left: auto;
+      margin-right: 40px;
+    }
+
+    .nav a {
+      position: relative;
+      text-decoration: none;
+      color: #1e2b36;
+      font-size: 18px;
+      letter-spacing: 0.04em;
+      padding: 10px 0;
+      white-space: nowrap;
+    }
+
+    .nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 44px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .hamburger {
+      width: 38px;
+      height: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 9px;
+      flex: 0 0 auto;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+
+    .hamburger span {
+      width: 38px;
+      height: 2px;
+      background: var(--navy);
+      display: block;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 6;
+      padding-top: clamp(96px, 13vh, 155px);
+      max-width: 860px;
+    }
+
+    .hero-title {
+      font-family: "Noto Serif TC", "Noto Serif CJK TC", "PMingLiU", serif;
+      margin: 0;
+      font-size: clamp(44px, 5.2vw, 78px);
+      line-height: 1.42;
+      letter-spacing: 0.045em;
+      color: var(--navy);
+      font-weight: 700;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    .hero-sub {
+      margin-top: 36px;
+      font-size: clamp(22px, 2.1vw, 31px);
+      letter-spacing: 0.10em;
+      color: var(--navy);
+      font-weight: 600;
+      line-height: 1.55;
+    }
+
+    .hero-en {
+      margin-top: 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(22px, 2.2vw, 32px);
+      letter-spacing: 0.14em;
+      color: var(--navy-2);
+      line-height: 1.35;
+    }
+
+    .actions {
+      margin-top: 46px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      min-width: 176px;
+      height: 58px;
+      padding: 0 34px;
+      border-radius: 6px;
+      border: 1px solid rgba(16,43,71,0.28);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      text-decoration: none;
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      transition: 0.2s ease;
+      box-shadow: 0 14px 32px rgba(45, 61, 77, 0.10);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d8b561, #a87b2e);
+      color: #fff;
+      border-color: rgba(184,145,62,0.65);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.70);
+      color: #172b40;
+      backdrop-filter: blur(4px);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .arrow {
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    @media (max-width: 1120px) {
+      .nav { display: none; }
+      .brand { min-width: 0; }
+      .building { opacity: 0.55; right: -120px; }
+    }
+
+    @media (max-width: 720px) {
+      .container { width: min(100% - 40px, 1500px); }
+      .site-header { height: 94px; }
+      .brand-logos img { width: 36px; height: 36px; }
+      .brand-logos .sfl-logo { width: 34px; height: 34px; }
+      .brand-title { font-size: 21px; }
+      .brand-subtitle { font-size: 12px; letter-spacing: 0.22em; }
+      .hero-content { padding-top: 84px; }
+      .hero-title { font-size: 39px; line-height: 1.38; }
+      .hero-sub { font-size: 19px; }
+      .hero-en { font-size: 19px; letter-spacing: 0.08em; }
+      .building { min-width: 450px; opacity: 0.38; }
+      .actions { gap: 14px; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="hero">
+    <div class="sun-glow" aria-hidden="true"></div>
+
+    <div class="building" aria-hidden="true">
+      <div class="building-main"></div>
+      <div class="terrace"></div>
+      <div class="steps"></div>
+    </div>
+
+    <div class="container">
+      <header class="site-header">
+        <div class="brand">
+          <div class="brand-logos">
+            <img src="assets/sit-logo.png" alt="SIT logo" />
+            <img class="sfl-logo" src="assets/sfl-logo.png" alt="SFL logo" />
+          </div>
+          <div>
+            <div class="brand-title">源序 <span class="cross">×</span> 源序流</div>
+            <div class="brand-subtitle">智慧科技・專業實踐</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="主要導覽">
+          <a class="active" href="#home">首頁</a>
+          <a href="#about">關於我們</a>
+          <a href="#systems">我們的系統</a>
+          <a href="#cases">案例與報告</a>
+          <a href="#contact">合作與聯絡</a>
+          <a href="#language">中文 / EN</a>
+        </nav>
+
+        <button class="hamburger" aria-label="開啟選單" type="button" onclick="openMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </header>
+
+      <section class="hero-content" id="home">
+        <h1 class="hero-title">
+          讓複雜的問題，<br>
+          變得能理解、能決策、能行動。
+        </h1>
+
+        <div class="hero-sub">
+          跨領域整合 × 專業方法 × 實務落地
+        </div>
+
+        <div class="hero-en">
+          Insight for Better Decision
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="#about">了解我們 <span class="arrow">→</span></a>
+          <a class="btn btn-secondary" href="#contact">聯絡我們 <span class="arrow">→</span></a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    function openMenu() {
+      console.log("Menu opened");
+    }
+  </script>
+</body>
+</html>
